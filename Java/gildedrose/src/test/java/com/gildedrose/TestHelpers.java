@@ -1,9 +1,12 @@
 package com.gildedrose;
 
+import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import org.hamcrest.FeatureMatcher;
 import org.hamcrest.Matcher;
+
+import static com.gildedrose.TestHelpers.FluentGildedRose.gildedRose;
 
 public class TestHelpers {
     public static class FluentGildedRose {
@@ -107,5 +110,57 @@ public class TestHelpers {
 
     public static Matcher<Item> withQuality(Integer quality) {
         return new ItemQuality(is(quality));
+    }
+
+    public static class FluentRegularItem {
+        private int quality;
+        private int sellingIn;
+
+        public FluentRegularItem withQuality(int quality) {
+            this.quality = quality;
+            return this;
+        }
+
+        public FluentRegularItem sellingIn(int sellingIn) {
+            this.sellingIn = sellingIn;
+            return this;
+        }
+
+        public FluentRegularItemShouldHave shouldEndUp() {
+            return new FluentRegularItemShouldHave(quality, sellingIn);
+        }
+
+        public static FluentRegularItem regularItem() {
+            return new FluentRegularItem();
+        }
+    }
+
+    public static class FluentRegularItemShouldHave {
+        private final int initialQuality;
+        private final int initialSellingIn;
+        private int sellingIn;
+
+        public FluentRegularItemShouldHave(int expectedQuality, int initialSellingIn) {
+            this.initialQuality = expectedQuality;
+            this.initialSellingIn = initialSellingIn;
+        }
+
+        public FluentRegularItemShouldHave sellingIn(int sellingIn) {
+            this.sellingIn = sellingIn;
+            return this;
+        }
+
+        public void withQuality(int quality) {
+            String regularItem = "regular";
+            gildedRose()
+                .startingWith(
+                    new Item(regularItem, this.initialSellingIn, this.initialQuality)
+                )
+                .timesUpdatingQuality(1)
+                .shouldMatch(itemNumber(0, allOf(
+                    withName(regularItem),
+                    toSellIn(this.sellingIn),
+                    TestHelpers.withQuality(quality))));
+        }
     }
 }
