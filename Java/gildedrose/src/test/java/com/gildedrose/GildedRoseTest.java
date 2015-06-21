@@ -63,4 +63,12 @@ public class GildedRoseTest {
             .timesUpdatingQuality(1)
             .shouldMatch(itemNumber(0, withQuality(1)));
     }
+
+    @Test
+    public void aged_brie_should_not_increase_past_50() {
+        gildedRose()
+            .startingWith(new Item("Aged Brie", 10, 50))
+            .timesUpdatingQuality(1)
+            .shouldMatch(itemNumber(0, withQuality(50)));
+    }
 }
