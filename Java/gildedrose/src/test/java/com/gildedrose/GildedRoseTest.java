@@ -85,4 +85,26 @@ public class GildedRoseTest {
             .whenSellingIn(10)
             .withQuality(20);
     }
+
+    @Test
+    public void sulfuras_should_stay_the_same_when_selling_in_0_and_quality_0() {
+        sulfurasShouldStayTheSame()
+            .whenSellingIn(0)
+            .withQuality(0);
+    }
+
+    @Test
+    public void sulfuras_should_stay_the_same_when_selling_in_minus_5_and_quality_8() {
+        sulfurasShouldStayTheSame()
+            .whenSellingIn(-5)
+            .withQuality(8);
+    }
+
+    @Test
+    public void sulfuras_should_stay_the_same_when_selling_in_15_and_quality_80() {
+        sulfurasShouldStayTheSame()
+            .whenSellingIn(15)
+            .withQuality(80);
+    }
 }
+
