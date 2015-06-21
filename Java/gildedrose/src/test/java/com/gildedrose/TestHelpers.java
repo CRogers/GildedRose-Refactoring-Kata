@@ -152,4 +152,29 @@ public class TestHelpers {
             return new FluentItemTest("Aged Brie");
         }
     }
+
+    public static class SulfurasShouldStayTheSame {
+        private int sellingIn;
+
+        public static SulfurasShouldStayTheSame sulfurasShouldStayTheSame() {
+            return new SulfurasShouldStayTheSame();
+        }
+
+        public SulfurasShouldStayTheSame whenSellingIn(int sellingIn) {
+            this.sellingIn = sellingIn;
+            return this;
+        }
+
+        public void withQuality(int quality) {
+            String sulfuras = "Sulfuras, Hand of Ragnaros";
+            gildedRose()
+                .startingWith(new Item(sulfuras, sellingIn, quality))
+                .timesUpdatingQuality(1)
+                .shouldMatch(itemNumber(0, allOf(
+                    withName(sulfuras),
+                    toSellIn(this.sellingIn),
+                    TestHelpers.withQuality(quality)
+                )));
+        }
+    }
 }

@@ -1,15 +1,10 @@
 package com.gildedrose;
 
-import static org.hamcrest.Matchers.allOf;
 import org.junit.Test;
 
-import static com.gildedrose.TestHelpers.FluentGildedRose.gildedRose;
 import static com.gildedrose.TestHelpers.FluentItemTest.agedBrie;
 import static com.gildedrose.TestHelpers.FluentItemTest.regularItem;
-import static com.gildedrose.TestHelpers.itemNumber;
-import static com.gildedrose.TestHelpers.toSellIn;
-import static com.gildedrose.TestHelpers.withName;
-import static com.gildedrose.TestHelpers.withQuality;
+import static com.gildedrose.TestHelpers.SulfurasShouldStayTheSame.sulfurasShouldStayTheSame;
 
 public class GildedRoseTest {
     @Test
@@ -85,14 +80,9 @@ public class GildedRoseTest {
     }
 
     @Test
-    public void sulfuras() {
-        gildedRose()
-            .startingWith(new Item("Sulfuras, Hand of Ragnaros", 10, 20))
-            .timesUpdatingQuality(1)
-            .shouldMatch(itemNumber(0, allOf(
-                withName("Sulfuras, Hand of Ragnaros"),
-                toSellIn(10),
-                withQuality(20)
-            )));
+    public void sulfuras_should_stay_the_same_when_selling_in_10_and_quality_20() {
+        sulfurasShouldStayTheSame()
+            .whenSellingIn(10)
+            .withQuality(20);
     }
 }
