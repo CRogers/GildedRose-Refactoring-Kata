@@ -126,41 +126,22 @@ public class TestHelpers {
             return this;
         }
 
-        public FluentRegularItemShouldHave shouldEndUp() {
-            return new FluentRegularItemShouldHave(quality, sellingIn);
+        public void shouldEndUpWithQuality(int endQuality) {
+            String regularItem = "regular";
+            gildedRose()
+                .startingWith(
+                    new Item(regularItem, sellingIn, quality)
+                )
+                .timesUpdatingQuality(1)
+                .shouldMatch(itemNumber(0, allOf(
+                    withName("regular"),
+                    toSellIn(sellingIn - 1),
+                    TestHelpers.withQuality(endQuality)
+                )));
         }
 
         public static FluentRegularItem regularItem() {
             return new FluentRegularItem();
-        }
-    }
-
-    public static class FluentRegularItemShouldHave {
-        private final int initialQuality;
-        private final int initialSellingIn;
-        private int sellingIn;
-
-        public FluentRegularItemShouldHave(int expectedQuality, int initialSellingIn) {
-            this.initialQuality = expectedQuality;
-            this.initialSellingIn = initialSellingIn;
-        }
-
-        public FluentRegularItemShouldHave sellingIn(int sellingIn) {
-            this.sellingIn = sellingIn;
-            return this;
-        }
-
-        public void withQuality(int quality) {
-            String regularItem = "regular";
-            gildedRose()
-                .startingWith(
-                    new Item(regularItem, this.initialSellingIn, this.initialQuality)
-                )
-                .timesUpdatingQuality(1)
-                .shouldMatch(itemNumber(0, allOf(
-                    withName(regularItem),
-                    toSellIn(this.sellingIn),
-                    TestHelpers.withQuality(quality))));
         }
     }
 }

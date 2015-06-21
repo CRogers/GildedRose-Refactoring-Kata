@@ -13,9 +13,7 @@ public class GildedRoseTest {
         regularItem()
             .sellingIn(0)
             .withQuality(0)
-        .shouldEndUp()
-            .sellingIn(-1)
-            .withQuality(0);
+        .shouldEndUpWithQuality(0);
     }
 
     @Test
@@ -23,9 +21,7 @@ public class GildedRoseTest {
         regularItem()
             .sellingIn(1)
             .withQuality(0)
-        .shouldEndUp()
-            .sellingIn(0)
-            .withQuality(0);
+        .shouldEndUpWithQuality(0);
     }
 
     @Test
@@ -33,9 +29,7 @@ public class GildedRoseTest {
         regularItem()
             .sellingIn(1)
             .withQuality(1)
-        .shouldEndUp()
-            .sellingIn(0)
-            .withQuality(0);
+        .shouldEndUpWithQuality(0);
     }
 
     @Test
@@ -43,9 +37,7 @@ public class GildedRoseTest {
         regularItem()
             .sellingIn(-1)
             .withQuality(10)
-        .shouldEndUp()
-            .sellingIn(-2)
-            .withQuality(8);
+        .shouldEndUpWithQuality(8);
     }
 
     @Test
@@ -53,9 +45,7 @@ public class GildedRoseTest {
         regularItem()
             .sellingIn(0)
             .withQuality(10)
-        .shouldEndUp()
-            .sellingIn(-1)
-            .withQuality(8);
+        .shouldEndUpWithQuality(8);
     }
 
     @Test
@@ -63,9 +53,7 @@ public class GildedRoseTest {
         regularItem()
             .sellingIn(5)
             .withQuality(100)
-        .shouldEndUp()
-            .sellingIn(4)
-            .withQuality(99);
+        .shouldEndUpWithQuality(99);
     }
 
     @Test
