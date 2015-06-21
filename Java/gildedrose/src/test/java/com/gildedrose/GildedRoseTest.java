@@ -15,7 +15,7 @@ public class GildedRoseTest {
         private final int number;
 
         public ItemNumber(int number, Matcher<Item> subMatcher) {
-            super(subMatcher, "item number", "item");
+            super(subMatcher, "item number " + number, "item's");
             this.number = number;
         }
 
@@ -31,7 +31,7 @@ public class GildedRoseTest {
 
     private static class ItemName extends FeatureMatcher<Item, String> {
         public ItemName(Matcher<String> subMatcher) {
-            super(subMatcher, "item name", "name");
+            super(subMatcher, "name", "but name");
         }
 
         @Override
@@ -50,7 +50,7 @@ public class GildedRoseTest {
 
     private static class ItemSellIn extends FeatureMatcher<Item, Integer> {
         public ItemSellIn(Matcher<Integer> subMatcher) {
-            super(subMatcher, "item to sell in", "sell in");
+            super(subMatcher, "days to sell in", "but sell in");
         }
 
         @Override
@@ -69,7 +69,7 @@ public class GildedRoseTest {
 
     private static class ItemQuality extends FeatureMatcher<Item, Integer> {
         public ItemQuality(Matcher<Integer> subMatcher) {
-            super(subMatcher, "item quality", "quality");
+            super(subMatcher, "quality", "but quality");
         }
 
         @Override
