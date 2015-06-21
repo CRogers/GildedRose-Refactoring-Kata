@@ -112,36 +112,44 @@ public class TestHelpers {
         return new ItemQuality(is(quality));
     }
 
-    public static class FluentRegularItem {
+    public static class FluentItemTest {
+        private final String itemName;
         private int quality;
         private int sellingIn;
 
-        public FluentRegularItem withQuality(int quality) {
+        public FluentItemTest(String itemName) {
+            this.itemName = itemName;
+        }
+
+        public FluentItemTest withQuality(int quality) {
             this.quality = quality;
             return this;
         }
 
-        public FluentRegularItem sellingIn(int sellingIn) {
+        public FluentItemTest sellingIn(int sellingIn) {
             this.sellingIn = sellingIn;
             return this;
         }
 
         public void shouldEndUpWithQuality(int endQuality) {
-            String regularItem = "regular";
             gildedRose()
                 .startingWith(
-                    new Item(regularItem, sellingIn, quality)
+                    new Item(itemName, sellingIn, quality)
                 )
                 .timesUpdatingQuality(1)
                 .shouldMatch(itemNumber(0, allOf(
-                    withName("regular"),
+                    withName(itemName),
                     toSellIn(sellingIn - 1),
                     TestHelpers.withQuality(endQuality)
                 )));
         }
 
-        public static FluentRegularItem regularItem() {
-            return new FluentRegularItem();
+        public static FluentItemTest regularItem() {
+            return new FluentItemTest("regular");
+        }
+
+        public static FluentItemTest agedBrie() {
+            return new FluentItemTest("Aged Brie");
         }
     }
 }
