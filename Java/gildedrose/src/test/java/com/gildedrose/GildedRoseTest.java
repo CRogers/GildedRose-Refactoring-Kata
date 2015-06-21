@@ -50,4 +50,30 @@ public class GildedRoseTest {
                 toSellIn(0),
                 withQuality(0))));
     }
+
+    @Test
+    public void regular_item_selling_in_minus_1_with_quality_10() {
+        gildedRose()
+            .startingWith(
+                new Item(regularItem, -1, 10)
+            )
+            .timesUpdatingQuality(1)
+            .shouldMatch(itemNumber(0, allOf(
+                withName(regularItem),
+                toSellIn(-2),
+                withQuality(8))));
+    }
+
+    @Test
+    public void regular_item_selling_in_0_with_quality_10() {
+        gildedRose()
+            .startingWith(
+                new Item(regularItem, -1, 10)
+            )
+            .timesUpdatingQuality(1)
+            .shouldMatch(itemNumber(0, allOf(
+                withName(regularItem),
+                toSellIn(-2),
+                withQuality(8))));
+    }
 }
