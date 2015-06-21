@@ -2,7 +2,10 @@ package com.gildedrose;
 
 import org.junit.Test;
 
+import static com.gildedrose.TestHelpers.FluentGildedRose.gildedRose;
 import static com.gildedrose.TestHelpers.FluentRegularItem.regularItem;
+import static com.gildedrose.TestHelpers.itemNumber;
+import static com.gildedrose.TestHelpers.withQuality;
 
 public class GildedRoseTest {
     @Test
@@ -53,5 +56,23 @@ public class GildedRoseTest {
         .shouldEndUp()
             .sellingIn(-1)
             .withQuality(8);
+    }
+
+    @Test
+    public void regular_item_selling_in_5_with_quality_100() {
+        regularItem()
+            .sellingIn(5)
+            .withQuality(100)
+        .shouldEndUp()
+            .sellingIn(4)
+            .withQuality(99);
+    }
+
+    @Test
+    public void aged_brie_should_increase_in_value_from_0() {
+        gildedRose()
+            .startingWith(new Item("Aged Brie", 10, 0))
+            .timesUpdatingQuality(1)
+            .shouldMatch(itemNumber(0, withQuality(1)));
     }
 }
