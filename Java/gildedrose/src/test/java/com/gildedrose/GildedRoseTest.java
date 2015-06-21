@@ -1,9 +1,15 @@
 package com.gildedrose;
 
+import static org.hamcrest.Matchers.allOf;
 import org.junit.Test;
 
+import static com.gildedrose.TestHelpers.FluentGildedRose.gildedRose;
 import static com.gildedrose.TestHelpers.FluentItemTest.agedBrie;
 import static com.gildedrose.TestHelpers.FluentItemTest.regularItem;
+import static com.gildedrose.TestHelpers.itemNumber;
+import static com.gildedrose.TestHelpers.toSellIn;
+import static com.gildedrose.TestHelpers.withName;
+import static com.gildedrose.TestHelpers.withQuality;
 
 public class GildedRoseTest {
     @Test
@@ -76,5 +82,17 @@ public class GildedRoseTest {
             .sellingIn(0)
             .withQuality(20)
         .shouldEndUpWithQuality(22);
+    }
+
+    @Test
+    public void sulfuras() {
+        gildedRose()
+            .startingWith(new Item("Sulfuras, Hand of Ragnaros", 10, 20))
+            .timesUpdatingQuality(1)
+            .shouldMatch(itemNumber(0, allOf(
+                withName("Sulfuras, Hand of Ragnaros"),
+                toSellIn(10),
+                withQuality(20)
+            )));
     }
 }
