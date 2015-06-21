@@ -69,4 +69,12 @@ public class GildedRoseTest {
             .withQuality(50)
         .shouldEndUpWithQuality(50);
     }
+
+    @Test
+    public void aged_brie_past_sell_date_should_increase_quality_by_two() {
+        agedBrie()
+            .sellingIn(0)
+            .withQuality(20)
+        .shouldEndUpWithQuality(22);
+    }
 }
